@@ -7,7 +7,11 @@ export default function Geo() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-  
+
+      const userCities = window.localStorage.getItem("cities");
+
+      if (userCities && JSON.parse(userCities).length) { return };
+      
       const success = async (pos: GeolocationPosition) => {
   
         const lat: string = pos.coords.latitude.toString();

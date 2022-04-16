@@ -2,18 +2,30 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addCity, setCity } from "../actions/actions";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
 
 export default function SearchBar() {
 
   const dispatch = useDispatch();
   const listOfCities: Array<string> = useSelector((state: any) => state.listOfCities);
 
-  const onSearch = async (e: any) => {
-    
-    e.preventDefault();
+  useEffect(() => {
 
+    console.log('SearchBar')
+
+    const userCities = window.localStorage.getItem("cities");
+    if (userCities) {
+      const cities = JSON.parse(userCities);
+      cities.forEach((city: string) => {
+        onSearch(city);
+      });
+    }
+  }, [])
+
+  const onSearch = async (search: string) => {
+    
     try {
-      const geocoding = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${e.target[0].value}&limit=1&appid=${process.env.REACT_APP_WEATHER_API_KEY}`);
+      const geocoding = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=1&appid=${process.env.REACT_APP_WEATHER_API_KEY}`);
 
       const lat: string = geocoding.data[0]?.lat;
       const lon: string = geocoding.data[0]?.lon;
@@ -45,16 +57,30 @@ export default function SearchBar() {
 
       dispatch(addCity(lat, lon, name));
       dispatch(setCity(name));
+
+      const cities = window.localStorage.getItem("cities");
+      if (cities) {
+        const citiesArray: Array<string> = JSON.parse(cities);
+        !citiesArray.includes(name) && citiesArray.push(name);
+        window.localStorage.setItem("cities", JSON.stringify(citiesArray));
+      } else {
+        const citiesArray = [name];
+        window.localStorage.setItem("cities", JSON.stringify(citiesArray));
+      }
     } catch (error) {
       console.log(error);
     }
+  }
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    onSearch(e.target[0].value);
     e.target[0].value = "";
   }
 
   return (
     <div className="w-[300px] bg-slate-300 flex">
-        <form className="flex-1 flex items-center justify-center" onSubmit={onSearch}>
+        <form className="flex-1 flex items-center justify-center" onSubmit={handleSubmit}>
           <input className="w-full placeholder:text-slate-600 placeholder:text-center px-2 text-slate-900" placeholder='Search city...' autoFocus={true}></input>
           <button type="submit" className="w-[80px] text-slate-800 text-sm">Submit</button>
         </form>

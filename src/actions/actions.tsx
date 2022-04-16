@@ -55,6 +55,14 @@ export function addCity(lat: string, lon: string, name: string) {
 }
 
 export function removeCity(cityId: string) {
+
+  const userCities = window.localStorage.getItem("cities");
+  if (userCities) {
+    const cities = JSON.parse(userCities);
+    const newCities = cities.filter((city: string) => city !== cityId);
+    window.localStorage.setItem("cities", JSON.stringify(newCities));
+  }
+
   return {
     type: 'REMOVE_CITY',
     payload: cityId

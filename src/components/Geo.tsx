@@ -1,28 +1,42 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { addCity } from "../actions/actions";
+import { addCity, setCity } from "../actions/actions";
 
 export default function Geo() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
-        console.log('Geo');
   
       const success = async (pos: GeolocationPosition) => {
   
         const lat: string = pos.coords.latitude.toString();
         const lon: string = pos.coords.longitude.toString();
+        
+        try {
+          const geo = await axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${process.env.REACT_APP_GEO_API_KEY}`);
+          const name = geo.data.features[0].properties.city;
   
-        const geo = await axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${process.env.REACT_APP_GEO_API_KEY}`);
-        const name = geo.data.features[0].properties.city;
-  
-        dispatch(addCity(lat, lon, name));
+          dispatch(addCity(lat, lon, name));
+          dispatch(setCity(name));
+        } catch (error) {
+          console.log(error);   
+        }
       }
   
-      const error = (err: GeolocationPositionError) => {
-        console.log(err);
+      const error = async (err: GeolocationPositionError) => {
+        try {
+          const geo = await axios.get(`http://ip-api.com/json/`);
+
+          const lat: string = geo.data.lat;
+          const lon: string = geo.data.lon;
+          const name: string = geo.data.city;
+
+          dispatch(addCity(lat, lon, name));
+          dispatch(setCity(name));
+        } catch (error) {
+          console.log(error);
+        }
       }
       
       navigator.geolocation.getCurrentPosition(success, error);    

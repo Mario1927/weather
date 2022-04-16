@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { CardInterface } from "../interface/CardInterface";
-import { removeCity } from "../actions/actions";
+import { removeCity, unsetCity } from "../actions/actions";
 import { HourlyInterface } from "../interface/HourlyInterface";
 
 const pushpin = '📍'; const drop = '💧';
@@ -9,7 +9,10 @@ export default function Card({id, name, current, icon, feelsLike, max, min, time
 
     const dispatch = useDispatch();
 
-    const onClose = (id: string) => dispatch(removeCity(id));
+    const onClose = (id: string) => {
+        dispatch(removeCity(id))
+        dispatch(unsetCity(id))
+    };
 
   return (
     <div className="w-[325px] h-[300px] rounded-xl bg-slate-900 flex flex-col items-center text-slate-100 m-4 p-6">

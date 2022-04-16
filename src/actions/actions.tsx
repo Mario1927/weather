@@ -60,3 +60,17 @@ export function removeCity(cityId: string) {
     payload: cityId
   }
 }
+
+export function setCity(cityName: string) {
+  return {
+    type: 'SET_CITY',
+    payload: cityName
+  }
+}
+
+export function unsetCity(cityName: string) {
+  return {
+    type: 'UNSET_CITY',
+    payload: cityName
+  }
+}

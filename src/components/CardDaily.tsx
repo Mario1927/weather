@@ -10,7 +10,7 @@ export default function CardDaily() {
   return (
       daily.length ?
       <div className='w-full flex flex-col justify-center items-center h-[400px] my-6'>
-        <div className='bg-slate-900 w-[400px] md:w-[50%] rounded-xl text-slate-100 text-center py-2'>
+        <div className='bg-slate-900 w-[95%] md:w-[60%] rounded-xl text-slate-100 text-center py-2'>
           <div className='my-1'>
             <h1 className="text-4xl font-extrabold">{daily[0]?.name}</h1>
             <p>Six days forecast</p>

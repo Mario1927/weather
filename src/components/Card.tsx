@@ -27,7 +27,7 @@ export default function Card({id, name, current, icon, feelsLike, max, min, time
             
             {/* Icon and temp */}
             <div className="w-[35%] flex items-center justify-between">
-                <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={`Icon for ${description}`} style={{width: '75px'}}/>
+                <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt={`Icon for ${description}`} style={{width: '75px'}}/>
                 <p className="text-2xl font-bold">{current.toFixed(0)}°C</p>
             </div>
 
@@ -45,7 +45,7 @@ export default function Card({id, name, current, icon, feelsLike, max, min, time
                 return (
                     <div key={`${name} ${hour.time}`} className="flex flex-col items-center justify-center text-sm">
                         <p className="text-slate-400">{hour.time}</p>
-                        <img src={`http://openweathermap.org/img/wn/${hour.icon}@2x.png`} alt={`Icon for ${description}`}    style={{width: '25px'}}/>
+                        <img src={`https://openweathermap.org/img/wn/${hour.icon}@2x.png`} alt={`Icon for ${description}`}    style={{width: '25px'}}/>
                         <p className="text-slate-50">{hour.temp.toFixed(0)}°</p>
                         <p className="text-xs text-slate-400 pr-1">{`${drop} ${hour.humidity.toFixed(0)}%`}</p>
                     </div>

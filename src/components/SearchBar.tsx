@@ -13,7 +13,7 @@ export default function SearchBar() {
     e.preventDefault();
 
     try {
-      const geocoding = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${e.target[0].value}&limit=1&appid=${process.env.REACT_APP_WEATHER_API_KEY}`);
+      const geocoding = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${e.target[0].value}&limit=1&appid=${process.env.REACT_APP_WEATHER_API_KEY}`);
 
       const lat: string = geocoding.data[0].lat;
       const lon: string = geocoding.data[0].lon;

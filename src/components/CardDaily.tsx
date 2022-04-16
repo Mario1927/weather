@@ -22,7 +22,7 @@ export default function CardDaily() {
                 <p>{day.day.split(' ')[0]}</p>
                 <p>{`${drop} ${day.humidity}%`}</p>
                 <div className='flex items-start justify-center w-full h-[50px]'>
-                  <img src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`} alt={`Icon for wheater`} style={{width: '30px'}}/>
+                  <img src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`} alt={`Icon for wheater`} style={{width: '30px'}}/>
                 </div>
                 <p>{`${top} ${day.max}°`}</p>
                 <p>{`${min} ${day.min}°`}</p>

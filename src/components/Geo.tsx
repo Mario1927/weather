@@ -26,7 +26,7 @@ export default function Geo() {
   
       const error = async (err: GeolocationPositionError) => {
         try {
-          const geo = await axios.get(`http://ip-api.com/json/`);
+          const geo = await axios.get(`https://ip-api.com/json/`);
 
           const lat: string = geo.data.lat;
           const lon: string = geo.data.lon;

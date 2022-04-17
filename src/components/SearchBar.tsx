@@ -10,9 +10,6 @@ export default function SearchBar() {
   const listOfCities: Array<string> = useSelector((state: any) => state.listOfCities);
 
   useEffect(() => {
-
-    console.log('SearchBar')
-
     const userCities = window.localStorage.getItem("cities");
     if (userCities) {
       const cities = JSON.parse(userCities);

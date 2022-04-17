@@ -2,7 +2,8 @@ import { CardInterface } from "../interface/CardInterface"
 
 const initialState: any = {
     cities: [],
-    listOfCities: []
+    listOfCities: [],
+    selectedCity: '',
 }
 
 export default function reducer(state = initialState, action: any) {
@@ -26,6 +27,22 @@ export default function reducer(state = initialState, action: any) {
             return {
                 ...state,
                 listOfCities: state.listOfCities.filter((city: string) => city !== action.payload)
+            }
+        case 'SELECT_CITY':
+            return {
+                ...state,
+                selectedCity: action.payload
+            }
+        case 'UNSELECT_CITY':
+            if(state.selectedCity === action.payload) {
+                return {
+                    ...state,
+                    selectedCity: ''
+                }
+            }else{
+                return {
+                    ...state,
+                }
             }
         default:
             return state

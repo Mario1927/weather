@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { CardInterface } from "../interface/CardInterface";
-import { removeCity, unsetCity } from "../actions/actions";
+import { removeCity, unsetCity, selectCity, unselectCity } from "../actions/actions";
 import { HourlyInterface } from "../interface/HourlyInterface";
 
 const pushpin = '📍'; const drop = '💧';
@@ -12,11 +12,17 @@ export default function Card({id, name, current, icon, feelsLike, max, min, time
     const onClose = (id: string) => {
         dispatch(removeCity(id))
         dispatch(unsetCity(id))
+        dispatch(unselectCity(name))
     };
 
+    const onSelect = (cityName: string) => {
+        dispatch(selectCity(cityName))
+    }
+
   return (
-    <div className="w-[325px] h-[300px] rounded-xl bg-slate-900 flex flex-col items-center text-slate-100 m-4 p-6">
+    <div className="w-[325px] h-[300px] rounded-xl bg-slate-900 flex flex-col items-center text-slate-100 m-4">
         {/* Location and date */}
+        <div className="w-[325px] h-[300px] rounded-xl bg-slate-900 flex flex-col items-center text-slate-100 px-6 pt-6 cursor-pointer" onClick={() => onSelect(name)}>
         <div className="w-full flex flex-col items-start justify-center">
             <h1 className="text-xl font-bold pl-2">{`${pushpin} ${name}`}</h1>
             <p className="text-xs pl-3">{time}</p>
@@ -52,7 +58,7 @@ export default function Card({id, name, current, icon, feelsLike, max, min, time
                 )
             })}
         </div>
-
+        </div>
         {/* Close button */}
         <button className="w-20 h-7 bg-slate-700 text-slate-100 font-bold my-6 rounded" onClick={() => onClose(id)}>Close</button>
     </div>

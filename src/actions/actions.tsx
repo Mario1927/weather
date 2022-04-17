@@ -47,7 +47,8 @@ export function addCity(lat: string, lon: string, name: string) {
           return daily;
         })
       };
-      return dispatch({type: "ADD_CITY", payload: city});
+      dispatch({type: "ADD_CITY", payload: city});
+      return dispatch({ type: "SELECT_CITY", payload: city.name });
     } catch (error) {
       console.log(error);
     }
@@ -79,6 +80,20 @@ export function setCity(cityName: string) {
 export function unsetCity(cityName: string) {
   return {
     type: 'UNSET_CITY',
+    payload: cityName
+  }
+}
+
+export function selectCity(cityName: string) {
+  return {
+    type: 'SELECT_CITY',
+    payload: cityName
+  }
+}
+
+export function unselectCity(cityName: string) {
+  return {
+    type: 'UNSELECT_CITY',
     payload: cityName
   }
 }

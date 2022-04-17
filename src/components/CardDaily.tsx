@@ -1,12 +1,16 @@
 import { useSelector } from 'react-redux'
+import { CardInterface } from '../interface/CardInterface';
 import { DailyInterface } from '../interface/DailyInterface';
 
 const top = '🔼'; const min = '🔽'; const drop = '💧';
 
 export default function CardDaily() {
-
-  const daily: Array<DailyInterface> = useSelector((state: any) => state.cities.length ? state.cities[state.cities.length - 1].daily : []);	
-
+  
+  const selectedCity: string = useSelector((state: any) => state.selectedCity);
+  const cities: Array<CardInterface> = useSelector((state: any) => state.cities);
+  const found: Array<CardInterface> = selectedCity ? cities.filter((city: CardInterface) => city.name === selectedCity) : cities.length ? [cities[cities.length - 1]] : [];
+  const daily: Array<DailyInterface> = found[0] ? found[0].daily : [];
+  
   return (
       daily.length ?
       <div className='w-full flex flex-col justify-center items-center h-[400px] my-6'>

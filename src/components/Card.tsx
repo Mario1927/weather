@@ -20,44 +20,44 @@ export default function Card({id, name, current, icon, feelsLike, max, min, time
     }
 
   return (
-    <div className="w-[325px] h-[300px] rounded-xl bg-slate-900 flex flex-col items-center text-slate-100 m-4">
+    <div className="w-[325px] h-[300px] rounded-xl bg-slate-900 flex flex-col items-center text-slate-100 m-4 hover:bg-slate-800 hover:border-slate-100 hover:border-2">
         {/* Location and date */}
-        <div className="w-[325px] h-[300px] rounded-xl bg-slate-900 flex flex-col items-center text-slate-100 px-6 pt-6 cursor-pointer" onClick={() => onSelect(name)}>
-        <div className="w-full flex flex-col items-start justify-center">
-            <h1 className="text-xl font-bold pl-2">{`${pushpin} ${name}`}</h1>
-            <p className="text-xs pl-3">{time}</p>
-        </div>
-        
-        {/* Current temp */}
-        <div className="w-full flex items-center justify-between">
+        <div className="w-[325px] h-[300px] rounded-xl flex flex-col items-center text-slate-100 px-6 pt-6 cursor-pointer" onClick={() => onSelect(name)}>
+            <div className="w-full flex flex-col items-start justify-center">
+                <h1 className="text-xl font-bold pl-2">{`${pushpin} ${name}`}</h1>
+                <p className="text-xs pl-3">{time}</p>
+            </div>
             
-            {/* Icon and temp */}
-            <div className="w-[35%] flex items-center justify-between">
-                <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt={`Icon for ${description}`} style={{width: '75px'}}/>
-                <p className="text-2xl font-bold">{current.toFixed(0)}°C</p>
+            {/* Current temp */}
+            <div className="w-full flex items-center justify-between">
+                
+                {/* Icon and temp */}
+                <div className="w-[35%] flex items-center justify-between">
+                    <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt={`Icon for ${description}`} style={{width: '75px'}}/>
+                    <p className="text-2xl font-bold">{current.toFixed(0)}°C</p>
+                </div>
+
+                {/* Weather description */}
+                <div className="w-[65%] flex flex-col items-end justify-center font-thin pr-3">
+                    <p className="text-xs">{description}</p>
+                    <p className="text-xs">{`${max.toFixed(0)}°/${min.toFixed(0)}°`}</p>
+                    <p className="text-xs">Feels like {feelsLike.toFixed(0)}°</p>
+                </div>
             </div>
 
-            {/* Weather description */}
-            <div className="w-[65%] flex flex-col items-end justify-center font-thin pr-3">
-                <p className="text-xs">{description}</p>
-                <p className="text-xs">{`${max.toFixed(0)}°/${min.toFixed(0)}°`}</p>
-                <p className="text-xs">Feels like {feelsLike.toFixed(0)}°</p>
+            {/* Hourly forecast */}
+            <div className="w-full grid grid-cols-5">
+                {hourly.map((hour: HourlyInterface) => {
+                    return (
+                        <div key={`${name} ${hour.time}`} className="flex flex-col items-center justify-center text-sm">
+                            <p className="text-slate-400">{hour.time}</p>
+                            <img src={`https://openweathermap.org/img/wn/${hour.icon}@2x.png`} alt={`Icon for ${description}`}    style={{width: '25px'}}/>
+                            <p className="text-slate-50">{hour.temp.toFixed(0)}°</p>
+                            <p className="text-xs text-slate-400 pr-1">{`${drop} ${hour.humidity.toFixed(0)}%`}</p>
+                        </div>
+                    )
+                })}
             </div>
-        </div>
-
-        {/* Hourly forecast */}
-        <div className="w-full grid grid-cols-5">
-            {hourly.map((hour: HourlyInterface) => {
-                return (
-                    <div key={`${name} ${hour.time}`} className="flex flex-col items-center justify-center text-sm">
-                        <p className="text-slate-400">{hour.time}</p>
-                        <img src={`https://openweathermap.org/img/wn/${hour.icon}@2x.png`} alt={`Icon for ${description}`}    style={{width: '25px'}}/>
-                        <p className="text-slate-50">{hour.temp.toFixed(0)}°</p>
-                        <p className="text-xs text-slate-400 pr-1">{`${drop} ${hour.humidity.toFixed(0)}%`}</p>
-                    </div>
-                )
-            })}
-        </div>
         </div>
         {/* Close button */}
         <button className="w-20 h-7 bg-slate-700 text-slate-100 font-bold my-6 rounded" onClick={() => onClose(id)}>Close</button>

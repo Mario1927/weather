@@ -60,7 +60,7 @@ export default function Card({id, name, current, icon, feelsLike, max, min, time
             </div>
         </div>
         {/* Close button */}
-        <button className="w-20 h-7 bg-slate-700 text-slate-100 font-bold my-6 rounded" onClick={() => onClose(id)}>Close</button>
+        <button className="w-20 h-7 bg-slate-700 text-slate-100 font-bold my-6 rounded hover:bg-red-800" onClick={() => onClose(id)}>Close</button>
     </div>
   )
 }

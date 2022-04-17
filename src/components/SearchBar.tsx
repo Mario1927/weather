@@ -20,6 +20,7 @@ export default function SearchBar() {
         onSearch(city);
       });
     }
+    // eslint-disable-next-line
   }, [])
 
   const onSearch = async (search: string) => {

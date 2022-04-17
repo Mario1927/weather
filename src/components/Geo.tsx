@@ -30,10 +30,10 @@ export default function Geo() {
   
       const error = async (err: GeolocationPositionError) => {
         try {
-          const geo = await axios.get(`https://ip-api.com/json/`);
+          const geo = await axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.REACT_APP_IPGEO_API_KEY}&fields=geo`);
 
-          const lat: string = geo.data.lat;
-          const lon: string = geo.data.lon;
+          const lat: string = geo.data.latitude;
+          const lon: string = geo.data.longitude;
           const name: string = geo.data.city;
 
           dispatch(addCity(lat, lon, name));
